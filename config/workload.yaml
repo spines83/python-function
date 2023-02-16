@@ -2,16 +2,18 @@ apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
   name: python-function
+  namespace: python-test
   labels:
     apps.tanzu.vmware.com/workload-type: web
+    apps.tanzu.vmware.com/has-tests: "true"
     app.kubernetes.io/part-of: python-function
 spec:
   source:
     git:
-      url: <https URL for your generated project's Git repository>
+      url: https://github.com/spines83/python-function.git
       ref:
         branch: main
   build:
     env:
       - name: BP_FUNCTION
-        value: func.main
+        value: func.hello
