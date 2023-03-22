@@ -1,14 +1,17 @@
 apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
-  name: python-function-4
+  name: python-function
   namespace: python-test
   labels:
     apps.tanzu.vmware.com/workload-type: web
     apps.tanzu.vmware.com/has-tests: "true"
-    apps.tanzu.vmware.com/use-scanner: "trivy"
     app.kubernetes.io/part-of: python-function
 spec:
+  params:
+    - name: annotations
+      value:
+        autoscaling.knative.dev/minScale: "1"
   source:
     git:
       url: https://github.com/spines83/python-function.git
@@ -18,3 +21,9 @@ spec:
     env:
       - name: BP_FUNCTION
         value: func.hello
+  env:
+    - name: MISSING_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: missing-secret
+          key: MISSING_SECRET
