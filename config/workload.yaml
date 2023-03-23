@@ -1,8 +1,8 @@
 apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
-  name: python-function
-  namespace: python-test
+  name: python-function-4
+  namespace: python-app
   labels:
     apps.tanzu.vmware.com/workload-type: web
     apps.tanzu.vmware.com/has-tests: "true"
@@ -21,9 +21,3 @@ spec:
     env:
       - name: BP_FUNCTION
         value: func.hello
-  env:
-    - name: MISSING_SECRET
-      valueFrom:
-        secretKeyRef:
-          name: missing-secret
-          key: MISSING_SECRET
